@@ -6,6 +6,8 @@ import {
 
 import Auth from './Screens/Auth'
 import App from './Screens/App'
+import Detalhes from './Components/ComponentDetalhes'
+
 
 const MainRoutes = {
     Auth: {
@@ -15,6 +17,10 @@ const MainRoutes = {
     App: {
         name: 'App',
         screen: App
+    },
+    Detalhes: {
+        name: 'Detalhes',
+        screen: Detalhes
     }
 }
 

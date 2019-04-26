@@ -11,6 +11,7 @@ import Entregas from '../Components/Entregas'
 import axios from 'axios'
 import moment from 'moment'
 import 'moment/locale/pt-br'
+import ComponentDetalhes from '../Components/ComponentDetalhes'
 
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
     addCode: false,
     addCanhoto: false,
     addObs: false,
-    pageEntregas: false
+    pageEntregas: false,
+    Detalhes: false
 
 }
 
@@ -48,12 +50,20 @@ export default class componentName extends Component {
             addCode: false,
             addCanhoto: false,
             addObs: false,
-            pageEntregas: false
+            pageEntregas: false,
+            Detalhes: false
 
         };
     }
 
-
+    Detalhes = item => {
+        console.log(item.long)
+        this.props.navigation.navigate('Detalhes', {
+            lat: item.lat,
+            long: item.long,
+            image: item.image
+        })
+    }
 
     pickerImage = () => {
         ImagePicker.showImagePicker({
@@ -74,17 +84,17 @@ export default class componentName extends Component {
 
     Fetch = async () => {
         try {
-            const res = await axios.post('http://200.150.166.73:5008/EnviaFoto', {
-                chave: this.state.codeBar,
-                foto: this.state.image.base64,
-                lat: this.state.lat,
-                long: this.state.long,
-                obs: this.state.obs,
-                date: this.state.date,
-                cpf: '123456789-01',
-                placa: 'Mir-0055'
-            })
-            console.log(res.data)
+            // const res = await axios.post('http://200.150.166.73:5008/EnviaFoto', {
+            //     chave: this.state.codeBar,
+            //     foto: this.state.image.base64,
+            //     lat: this.state.lat,
+            //     long: this.state.long,
+            //     obs: this.state.obs,
+            //     date: this.state.date,
+            //     cpf: '123456789-01',
+            //     placa: 'Mir-0055'
+            // })
+            // console.log(res.data)
 
             const entregas = [...this.state.entregas]
             entregas.push({
@@ -93,7 +103,9 @@ export default class componentName extends Component {
                 image: this.state.image,
                 obs: this.state.obs,
                 date: this.state.date,
-                ...res.data.Retorno[0]
+                lat: this.state.lat,
+                long: this.state.long,
+                // ...res.data.Retorno[0]
 
             })
 
@@ -190,7 +202,9 @@ export default class componentName extends Component {
                         lista={<FlatList data={this.state.entregas}
                             keyExtractor={item => `${item.id}`}
                             renderItem={({ item }) =>
-                                <Entregas {...item} />} />} /> : null}
+                                <Entregas {...item} item={item} onDetalhes={this.Detalhes} />} />} /> : null}
+
+
             </View>
 
         );

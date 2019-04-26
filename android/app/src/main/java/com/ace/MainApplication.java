@@ -1,5 +1,6 @@
 package com.ace;
-
+import com.facebook.soloader.SoLoader;
+import com.mapbox.rctmgl.RCTMGLPackage;
 import android.app.Application;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactApplication;
@@ -26,10 +27,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImagePickerPackage(),
-            new RNGestureHandlerPackage(),
+          new ImagePickerPackage(),
+          new RNGestureHandlerPackage(),
           new VectorIconsPackage(),
-          new RNCameraPackage()
+          new RNCameraPackage(),
+          new RCTMGLPackage()
       );
     }
 

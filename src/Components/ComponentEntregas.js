@@ -1,17 +1,16 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, FlatList } from 'react-native';
 import HomeImage from '../assets/img/bg-home.png'
-import ButtonHomeMenu from './ButtonHomeMenu'
 import Styles from './StylesPattern'
 import BtnSair from '../Components/ButtonSair'
 import moment from 'moment'
 import 'moment/locale/pt-br'
-import Entregas from './Entregas'
+
 
 
 // import { Container } from './styles';
-
 const ComponentHome = props => {
+
     return (
         <ImageBackground source={HomeImage} style={{ flex: 1, resizeMode: 'stretch' }}>
             <View style={styles.container}>
@@ -20,9 +19,9 @@ const ComponentHome = props => {
                     <Text style={styles.dados}>Placa - MIR-0055</Text>
                     <Text style={styles.dados}>CPF - 123456789-01</Text>
                     <BtnSair nome='Voltar' action={props.onVoltar} />
-                </View>
-                <View style={styles.containerBody} >
-                    {props.lista}
+                    <View style={styles.containerBody} >
+                        {props.lista}
+                    </View>
                 </View>
             </View>
         </ImageBackground>

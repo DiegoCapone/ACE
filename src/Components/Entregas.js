@@ -4,10 +4,12 @@ import Style from './StylesPattern'
 
 const Entregas = props => {
     return (
-        <TouchableOpacity onPress={() => props.onDelete(props.id)}>
+        <TouchableOpacity onPress={() => props.onDetalhes(props.item)}>
             <View style={styles.container}>
-                <Text style={styles.title}>{props.descricao}</Text>
-                <Text style={styles.title}>{props.SessionId}</Text>
+                {/* <Text style={styles.title}>{props.descricao}</Text> */}
+                {/* <Text style={styles.title}>{props.SessionId}</Text> */}
+                <Text style={styles.title}>{props.obs}</Text>
+
             </View>
         </TouchableOpacity>
     )
