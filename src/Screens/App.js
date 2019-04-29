@@ -42,7 +42,7 @@ export default class componentName extends Component {
             image: null,
             lat: null,
             long: null,
-            date: moment().format('YYYY[-]MM[-]YY'),
+            date: moment().format('YYYY[-]MM[-]D'),
             obs: null,
 
 
@@ -82,19 +82,30 @@ export default class componentName extends Component {
         })
     }
 
+    valida = () => {
+        if (this.state.obs) {
+            this.Fetch()
+        } else {
+            Alert.alert('Informe quem recebeu a entrega')
+        }
+    }
+
     Fetch = async () => {
         try {
-            // const res = await axios.post('http://200.150.166.73:5008/EnviaFoto', {
-            //     chave: this.state.codeBar,
-            //     foto: this.state.image.base64,
-            //     lat: this.state.lat,
-            //     long: this.state.long,
-            //     obs: this.state.obs,
-            //     date: this.state.date,
-            //     cpf: '123456789-01',
-            //     placa: 'Mir-0055'
-            // })
-            // console.log(res.data)
+
+            const res = await axios.post('http://200.150.166.73:5008/EnviaFoto', {
+                chave: this.state.codeBar,
+                foto: this.state.image.base64,
+                lat: this.state.lat,
+                long: this.state.long,
+                obs: this.state.obs,
+                date: this.state.date,
+                cpf: '123456789-01',
+                placa: 'Mir-0055'
+            })
+            console.log(res.data)
+
+
 
             const entregas = [...this.state.entregas]
             entregas.push({
@@ -105,19 +116,28 @@ export default class componentName extends Component {
                 date: this.state.date,
                 lat: this.state.lat,
                 long: this.state.long,
-                // ...res.data.Retorno[0]
+                ...res.data.ttretorno[0]
 
             })
+            const status = res.data.ttretorno[0].observacao
 
-            await AsyncStorage.setItem('entregas', JSON.stringify(entregas));
-            Alert.alert('Sucesso!')
+            status == "ACE - Registro concluido com sucesso" ?
+                await AsyncStorage.setItem('entregas', JSON.stringify(entregas)) : null
+
+            status == "ACE - Registro concluido com sucesso" ?
+                Alert.alert(status) :
+                Alert.alert(status)
             this.Cancelar()
+
+
         }
         catch (error) {
             console.log(error)
             Alert.alert('Erro tente novamente!')
             this.Cancelar()
         }
+
+
         try {
             const data = await AsyncStorage.getItem('entregas');
             const entregas = JSON.parse(data) || []
@@ -192,7 +212,7 @@ export default class componentName extends Component {
 
                 {this.state.addObs ?
                     <AdicionarObs
-                        onFetch={this.Fetch}
+                        onFetch={this.valida}
                         onCancelar={this.Cancelar}
                         value={this.state.obs}
                         onChangeText={text => this.setState({ obs: text })} /> : null}

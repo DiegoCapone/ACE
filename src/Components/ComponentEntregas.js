@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, FlatList } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, ScrollView } from 'react-native';
 import HomeImage from '../assets/img/bg-home.png'
 import Styles from './StylesPattern'
 import BtnSair from '../Components/ButtonSair'
@@ -19,9 +19,9 @@ const ComponentHome = props => {
                     <Text style={styles.dados}>Placa - MIR-0055</Text>
                     <Text style={styles.dados}>CPF - 123456789-01</Text>
                     <BtnSair nome='Voltar' action={props.onVoltar} />
-                    <View style={styles.containerBody} >
-                        {props.lista}
-                    </View>
+                </View>
+                <View style={styles.containerBody} >
+                    {props.lista}
                 </View>
             </View>
         </ImageBackground>
@@ -30,7 +30,7 @@ const ComponentHome = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 3,
         marginTop: 10,
         marginLeft: 10
     },
@@ -38,9 +38,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     containerBody: {
+        flex: 7,
         justifyContent: 'center',
-        marginLeft: 40,
-        marginTop: 100
+        marginLeft: 35,
+        marginTop: 50
     },
     containerBar: {
 
